@@ -173,37 +173,50 @@ namespace Calc_UI
             if (firstNumber != string.Empty && input != string.Empty)
             {
                 secondNumber = input;
+                double num1, num2;
+
+                // validate the input strings
+                if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+                {
+                    // display an error message if the input strings are not in the correct format
+                    MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 switch (operation)
                 {
                     case '+':
-                        result = Convert.ToDouble(firstNumber) + Convert.ToDouble(secondNumber);
+                        result = num1 + num2;
                         break;
                     case '-':
-                        result = Convert.ToDouble(firstNumber) - Convert.ToDouble(secondNumber);
+                        result = num1 - num2;
                         break;
                     case '*':
-                        result = Convert.ToDouble(firstNumber) * Convert.ToDouble(secondNumber);
+                        result = num1 * num2;
                         break;
                     case '/':
-                        result = Convert.ToDouble(firstNumber) / Convert.ToDouble(secondNumber);
+                        result = num1 / num2;
                         break;
                 }
 
                 // set firstNumber to the result of the previous operation
                 firstNumber = result.ToString();
 
-                input = string.Empty;
+                // reset secondNumber to an empty string
+                secondNumber = string.Empty;
+
                 // display the result
                 textBox1.Text = firstNumber;
+            }
 
-                // store the operation
-                operation = ((Button)sender).Text[0];
-            }
-            else if (firstNumber != string.Empty)
-            {
-                // store the operation
-                operation = ((Button)sender).Text[0];
-            }
+            // store the operation
+            operation = ((Button)sender).Text[0];
+
+            // set firstNumber to the input value (even if it's empty)
+            firstNumber = input;
+
+            // reset the input
+            input = string.Empty;
         }
     }
 }
