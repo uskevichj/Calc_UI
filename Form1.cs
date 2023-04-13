@@ -133,33 +133,35 @@ namespace Calc_UI
         {
             // a button to calculate the result
             secondNumber = input;
+            double.TryParse(firstNumber, out double num1);
+            double.TryParse(secondNumber, out double num2);
             switch (operation)
             {
                 case '+':
-                    result = Convert.ToDouble(firstNumber) + Convert.ToDouble(secondNumber);
+                    result = num1 + num2;
                     break;
                 case '-':
-                    result = Convert.ToDouble(firstNumber) - Convert.ToDouble(secondNumber);
+                    result = num1 - num2;
                     break;
                 case '*':
-                    result = Convert.ToDouble(firstNumber) * Convert.ToDouble(secondNumber);
+                    result = num1 * num2;
                     break;
                 case '/':
-                    result = Convert.ToDouble(firstNumber) / Convert.ToDouble(secondNumber);
+                    if (num2 == 0)
+                    {
+                        MessageBox.Show("Cannot divide by zero.");
+                        return;
+                    }
+                    result = num1 / num2;
                     break;
             }
 
-            input = result.ToString();
+            // set firstNumber to the result of the previous operation
+            firstNumber = result.ToString();
+
+            input = string.Empty;
             // display the result
-            textBox1.Text = input;
-
+            textBox1.Text = firstNumber;
         }
-
-        // on next button push, clear the current textbox
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            textBox1.Text = string.Empty;
-        }
-
     }
 }
