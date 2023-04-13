@@ -154,5 +154,12 @@ namespace Calc_UI
             textBox1.Text = input;
 
         }
+
+        // on next button push, clear the current textbox
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = string.Empty;
+        }
+
     }
 }
