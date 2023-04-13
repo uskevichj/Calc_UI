@@ -66,7 +66,7 @@ namespace Calc_UI
 
         private void button8_Click(object sender, EventArgs e)
         {
-            input += "8"; 
+            input += "8";
             textBox1.Text = input;
         }
 
@@ -119,12 +119,14 @@ namespace Calc_UI
         {
             // a button to remove a character from input
             input = input.Remove(input.Length - 1);
+            textBox1.Text = input;
         }
 
         private void button16_Click(object sender, EventArgs e)
         {
             // a button to clear the input
             input = string.Empty;
+            textBox1.Text = input;
         }
 
         private void button17_Click(object sender, EventArgs e)

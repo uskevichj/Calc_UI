@@ -54,7 +54,7 @@
             button0.FlatStyle = FlatStyle.System;
             button0.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
             button0.Location = new Point(12, 463);
-            button0.Name = "zero";
+            button0.Name = "button0";
             button0.Size = new Size(156, 75);
             button0.TabIndex = 0;
             button0.Text = "0";
@@ -277,6 +277,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(344, 550);
             Controls.Add(textBox1);
             Controls.Add(button17);
