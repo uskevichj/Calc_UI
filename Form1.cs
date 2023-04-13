@@ -133,8 +133,16 @@ namespace Calc_UI
         {
             // a button to calculate the result
             secondNumber = input;
-            double.TryParse(firstNumber, out double num1);
-            double.TryParse(secondNumber, out double num2);
+            double num1, num2;
+
+            // validate the input strings
+            if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+            {
+                // display an error message if the input strings are not in the correct format
+                MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             switch (operation)
             {
                 case '+':
@@ -147,11 +155,6 @@ namespace Calc_UI
                     result = num1 * num2;
                     break;
                 case '/':
-                    if (num2 == 0)
-                    {
-                        MessageBox.Show("Cannot divide by zero.");
-                        return;
-                    }
                     result = num1 / num2;
                     break;
             }
@@ -162,6 +165,45 @@ namespace Calc_UI
             input = string.Empty;
             // display the result
             textBox1.Text = firstNumber;
+        }
+
+        private void operation_Click(object sender, EventArgs e)
+        {
+            // a button to perform an operation using the current input and the previous result
+            if (firstNumber != string.Empty && input != string.Empty)
+            {
+                secondNumber = input;
+                switch (operation)
+                {
+                    case '+':
+                        result = Convert.ToDouble(firstNumber) + Convert.ToDouble(secondNumber);
+                        break;
+                    case '-':
+                        result = Convert.ToDouble(firstNumber) - Convert.ToDouble(secondNumber);
+                        break;
+                    case '*':
+                        result = Convert.ToDouble(firstNumber) * Convert.ToDouble(secondNumber);
+                        break;
+                    case '/':
+                        result = Convert.ToDouble(firstNumber) / Convert.ToDouble(secondNumber);
+                        break;
+                }
+
+                // set firstNumber to the result of the previous operation
+                firstNumber = result.ToString();
+
+                input = string.Empty;
+                // display the result
+                textBox1.Text = firstNumber;
+
+                // store the operation
+                operation = ((Button)sender).Text[0];
+            }
+            else if (firstNumber != string.Empty)
+            {
+                // store the operation
+                operation = ((Button)sender).Text[0];
+            }
         }
     }
 }
