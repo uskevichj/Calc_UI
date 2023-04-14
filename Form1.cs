@@ -78,9 +78,10 @@ namespace Calc_UI
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if (!input.Contains("."));
-            textBox1.Text = input;            
-            
+            //a button that will add a decimal point to the input
+            input += ".";
+            textBox1.Text = input;
+
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -132,75 +133,45 @@ namespace Calc_UI
 
         private void button17_Click(object sender, EventArgs e)
         {
-            // a button to calculate the result
-            secondNumber = input;
-            double num1, num2;
+            // a button to calculate the result using parse operation
+            double firstNum;
+            double secondNum;
 
-            // validate the input strings
-            if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+            if (double.TryParse(firstNumber, out firstNum) && double.TryParse(input, out secondNum))
             {
-                // display an error message if the input strings are not in the correct format
-                MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                switch (operation)
+                {
+                    case '+':
+                        result = firstNum + secondNum;
+                        break;
+                    case '-':
+                        result = firstNum - secondNum;
+                        break;
+                    case '*':
+                        result = firstNum * secondNum;
+                        break;
+                    case '/':
+                        result = firstNum / secondNum;
+                        break;
+                }
+                textBox1.Text = result.ToString();
+                input = result.ToString();
 
-            switch (operation)
+                // take the result and store it in the first number
+                firstNumber = result.ToString();
+
+                // clear the second number
+                secondNumber = string.Empty;
+
+                // use the button to create a different result
+                operation = ' ';
+            }
+            else
             {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    result = num1 / num2;
-                    break;
+                // handle the case where the input strings cannot be converted to doubles
+                MessageBox.Show("Invalid input");
             }
-
-            // set firstNumber to the result of the previous operation
-            firstNumber = result.ToString();
-
-            input = string.Empty;
-            // display the result
-            textBox1.Text = firstNumber;
-        }     
-        // if a user wants to continue the operation  
-        private void Continue(object sender, EventArgs e)
-        {
-            secondNumber = input;
-            double num3, num4;
-
-            // validate the input strings
-            if (!double.TryParse(firstNumber, out num3) || !double.TryParse(secondNumber, out num4))
-            {
-                // display an error message if the input strings are not in the correct format
-                MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            switch (operation)
-            {
-                case '+':
-                    result = num3 + num4;
-                    break;
-                case '-':
-                    result = num3 - num4;
-                    break;
-                case '*':
-                    result = num3 * num4;
-                    break;
-                case '/':
-                    result = num3 / num4;
-                    break;
-            }
-            // set firstNumber to the result of the previous operation
-            firstNumber = result.ToString();
-
-            input = string.Empty;
-            // display the result
-            textBox1.Text = firstNumber;
         }
+
     }
 }
