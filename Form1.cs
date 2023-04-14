@@ -78,8 +78,9 @@ namespace Calc_UI
 
         private void button10_Click(object sender, EventArgs e)
         {
-            input += ".";
-            textBox1.Text = input;
+            if (!input.Contains("."));
+            textBox1.Text = input;            
+            
         }
 
         private void button11_Click(object sender, EventArgs e)
