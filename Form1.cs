@@ -166,5 +166,38 @@ namespace Calc_UI
             // display the result
             textBox1.Text = firstNumber;
         }     
+        // if a user wants to continue the operation  
+        private void Continue(object sender, EventArgs e)
+        {
+            secondNumber = input;
+            double num1, num2;
+
+            // validate the input strings
+            if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+            {
+                // display an error message if the input strings are not in the correct format
+                MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            switch (operation)
+            {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num1 / num2;
+                    break;
+            }
+            
+            input = string.Empty;
+            // display the result
+            textBox1.Text = firstNumber;
+        }
     }
 }
