@@ -170,10 +170,10 @@ namespace Calc_UI
         private void Continue(object sender, EventArgs e)
         {
             secondNumber = input;
-            double num1, num2;
+            double num3, num4;
 
             // validate the input strings
-            if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+            if (!double.TryParse(firstNumber, out num3) || !double.TryParse(secondNumber, out num4))
             {
                 // display an error message if the input strings are not in the correct format
                 MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -182,19 +182,21 @@ namespace Calc_UI
             switch (operation)
             {
                 case '+':
-                    result = num1 + num2;
+                    result = num3 + num4;
                     break;
                 case '-':
-                    result = num1 - num2;
+                    result = num3 - num4;
                     break;
                 case '*':
-                    result = num1 * num2;
+                    result = num3 * num4;
                     break;
                 case '/':
-                    result = num1 / num2;
+                    result = num3 / num4;
                     break;
             }
-            
+            // set firstNumber to the result of the previous operation
+            firstNumber = result.ToString();
+
             input = string.Empty;
             // display the result
             textBox1.Text = firstNumber;
