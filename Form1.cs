@@ -172,51 +172,56 @@ namespace Calc_UI
             // a button to perform an operation using the current input and the previous result
             if (firstNumber != string.Empty && input != string.Empty)
             {
+                // If the second number is already set, calculate the result using the previous operation
+                if (secondNumber != string.Empty)
+                {
+                    double num1, num2;
+
+                    // validate the input strings
+                    if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
+                    {
+                        // display an error message if the input strings are not in the correct format
+                        MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    switch (operation)
+                    {
+                        case '+':
+                            result = num1 + num2;
+                            break;
+                        case '-':
+                            result = num1 - num2;
+                            break;
+                        case '*':
+                            result = num1 * num2;
+                            break;
+                        case '/':
+                            result = num1 / num2;
+                            break;
+                    }
+
+                    // set firstNumber to the result of the previous operation
+                    firstNumber = result.ToString();
+
+                    // clear the second number
+                    secondNumber = string.Empty;
+                }
+
+                // save the current input as the second number
                 secondNumber = input;
-                double num1, num2;
 
-                // validate the input strings
-                if (!double.TryParse(firstNumber, out num1) || !double.TryParse(secondNumber, out num2))
-                {
-                    // display an error message if the input strings are not in the correct format
-                    MessageBox.Show("Invalid input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                // clear the input string
+                input = string.Empty;
 
-                switch (operation)
-                {
-                    case '+':
-                        result = num1 + num2;
-                        break;
-                    case '-':
-                        result = num1 - num2;
-                        break;
-                    case '*':
-                        result = num1 * num2;
-                        break;
-                    case '/':
-                        result = num1 / num2;
-                        break;
-                }
-
-                // set firstNumber to the result of the previous operation
-                firstNumber = result.ToString();
-
-                // reset secondNumber to an empty string
-                secondNumber = string.Empty;
-
-                // display the result
-                textBox1.Text = firstNumber;
+                // store the operation
+                operation = ((Button)sender).Text[0];
             }
-
-            // store the operation
-            operation = ((Button)sender).Text[0];
-
-            // set firstNumber to the input value (even if it's empty)
-            firstNumber = input;
-
-            // reset the input
-            input = string.Empty;
+            else if (firstNumber != string.Empty)
+            {
+                // store the operation
+                operation = ((Button)sender).Text[0];
+            }
         }
     }
 }
